@@ -6,7 +6,6 @@ public class Person
     public int Id { get; set; }
     public string Name { get; set; } = string.Empty;
     public string Address { get; set; } = string.Empty;
-    public List<string> Jajo { get; set; } = [];
     public List<Order> Orders { get; set; } = [];
 
     [AutoBuilderIgnore]

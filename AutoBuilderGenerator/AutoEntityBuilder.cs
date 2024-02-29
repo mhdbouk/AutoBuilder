@@ -47,10 +47,20 @@ public class AutoEntityBuilder : IIncrementalGenerator
                           
                           public class {{symbol!.Name}}Builder
                           {
-                            protected {{symbol!.Name}} {{symbol!.Name}} = new {{symbol!.Name}}();
+                            protected {{symbol!.Name}} {{symbol!.Name}};
                             public static implicit operator {{symbol!.Name}}({{symbol!.Name}}Builder builder)
                             {
                                 return builder.{{symbol!.Name}};
+                            }
+                            
+                            public {{symbol!.Name}}Builder()
+                            {
+                                {{symbol!.Name}} = new {{symbol!.Name}}();
+                            }
+                            
+                            public {{symbol!.Name}}Builder({{symbol!.Name}} {{symbol!.Name.ToLower()}})
+                            {
+                                this.{{symbol!.Name}} = {{symbol!.Name.ToLower()}};
                             }
                           """;
             
@@ -81,8 +91,9 @@ public class AutoEntityBuilder : IIncrementalGenerator
 
                 if (autoBuilderAttribute)
                 {
-                    codeBuilder.AppendLine("    private " + property.Type + "Builder _" + property.Name.ToLower() + ";");
-                    codeBuilder.AppendLine("    public " + property.Type + "Builder " + property.Name + "{ get { return _" + property.Name.ToLower() + " ??= new " + property.Type + "Builder(); } }");
+                    codeBuilder.AppendLine($"    private {property.Type}Builder _{property.Name.ToLower()};");
+                    
+                    codeBuilder.AppendLine($"    public {property.Type}Builder {property.Name} {{ get {{ return _{property.Name.ToLower()} ??= new {property.Type}Builder({symbol!.Name}.{property.Name}); }} }}");
                     continue;
                 }
                 
