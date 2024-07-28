@@ -1,4 +1,6 @@
-namespace AutoBuilder;
+using AutoBuilder;
+
+namespace Client;
 
 [AutoBuilder]
 public class Person

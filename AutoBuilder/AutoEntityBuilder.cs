@@ -3,10 +3,10 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Collections.Immutable;
 using System.Text;
 
-namespace AutoBuilderGenerator;
+namespace AutoBuilder;
 
 [Generator]
-public class AutoEntityBuilder : IIncrementalGenerator
+internal class AutoEntityBuilder : IIncrementalGenerator
 {
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
@@ -85,7 +85,7 @@ public class AutoEntityBuilder : IIncrementalGenerator
                     continue;
                 }
 
-                // check if property type is a AutoBuilder attribute, then add a propfull attribute to this builder
+                // check if property type is a Client attribute, then add a propfull attribute to this builder
                 var autoBuilderAttribute = property.Type.GetAttributes()
                                                   .Any(x => x.AttributeClass?.Name == "AutoBuilderAttribute");
 
